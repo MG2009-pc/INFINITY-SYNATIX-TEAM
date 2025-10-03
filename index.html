@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>INFINITY SYNATEX TEAM</title>
+  <style>
+    /* ---------- Reset & variables ---------- */
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#9aa6b2;
+      --accent:#7c3aed; /* purple accent */
+      --glass: rgba(255,255,255,0.04);
+      --maxw:1200px;
+      --radius:14px;
+      --gap:20px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Tahoma, system-ui, -apple-system, 'Noto Sans', 'Almarai', sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.08), transparent),
+                  linear-gradient(180deg, #071024 0%, var(--bg) 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:40px 20px;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto}
+
+    /* ---------- Header ---------- */
+    header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.6)}
+    .brand h1{margin:0;font-size:18px}
+    nav{display:flex;gap:12px}
+    nav a{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600}
+    nav a:hover{color:var(--accent);background:var(--glass)}
+
+    /* ---------- Hero ---------- */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
+
+    .intro h2{margin:0 0 8px 0;font-size:28px}
+    .intro p{margin:0 0 14px;color:var(--muted);line-height:1.6}
+    .cta{display:flex;gap:12px}
+    .btn{padding:10px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+
+    .profile{display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
+    .profile .photo{width:320px;height:320px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#0b1220,#071024);display:flex;align-items:center;justify-content:center}
+    .profile .photo img{width:100%;height:100%;object-fit:cover}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* ---------- Projects ---------- */
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:18px 0}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .project{border-radius:12px;overflow:hidden;position:relative;background:#071028}
+    .project img{width:100%;height:200px;object-fit:cover;display:block}
+    .project .info{position:absolute;left:12px;bottom:12px;right:12px;padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.6));backdrop-filter: blur(4px)}
+    .project h3{margin:0;font-size:16px}
+    .tags{display:flex;gap:8px;margin-top:6px}
+    .tag{background:rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+
+    /* ---------- Skills & contact ---------- */
+    .two-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .skill{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,0.01),transparent)}
+    .bar{height:8px;border-radius:8px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:8px}
+    .bar > i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent),#06b6d4);}
+
+    form input, form textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    form label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* ---------- Modal viewer ---------- */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.7);z-index:60}
+    .modal.open{display:flex}
+    .modal .mcard{max-width:900px;width:92%;border-radius:14px;overflow:hidden}
+    .modal img{width:100%;height:auto;display:block}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      .profile .photo{width:260px;height:260px}
+    }
+    @media (max-width:640px){
+      nav{display:none}
+      .projects-grid{grid-template-columns:1fr}
+      .two-cols{grid-template-columns:1fr}
+      body{padding:20px 14px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo"><img src="ag.jfif" width="50px" style="border-radius: 10px;"></div>
+        <div>
+          <h1>INFINITY SYNATEX TEAM</h1>
+          <div class="meta">
+ </div>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">أعمال</a>
+        <a href="#skills">مهارات</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card intro">
+        <h2>INFINITY SYNATEX TEAM</h2>
+    <p>
+      INFINITY SYNTAX TEAM
+هي شركة متخصصه في تقديم خدمات تطوير واجهات المستخدم (front -end Development) بمستوي عالي من الاحترافيه و الابتكار .
+نهدف الي خلق تجارب رقميه متميزه وسلسة للمستخدمين من خلال تصميم و تطوير واجهات جذابه  متاجوبه و سهلة الاستخدام تعتمد علي احدث التقنيات والمعااير العالميه 
+نحن نؤمن بأن واجهة المستخدم هي الواجهة الاولي للعلامه التجاريه ولهذا نركز عليس التغاصيل الدقيقه التي تحدث فرقا كبيرا في تجربة المستخدم  </p>
+       
+    </p> <div class="cta">
+          <button class="btn btn-primary" id="downloadCv">تحميل السيرة الذاتية</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تواصل معي</button>
+        </div>
+
+        <div style="margin-top:18px;">
+          <h4 style="margin:0 0 8px 0">خدمات</h4>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div class="tag">تصميم واجهات</div>
+            <div class="tag">تطوير Front-end</div>
+            <div class="tag">تحسين تجربة المستخدم</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card profile">
+        <div class="photo">
+          <!-- ضع صورتك هنا داخل المجلد images/profile.jpg -->
+          <img src="ee.jfif" alt="صورتك" onerror="this.style.filter='grayscale(40%)';this.style.objectPosition='center';this.title='أضف صورتي في images/profile.jpg'" />
+        </div>
+        <div>
+          <div style="font-weight:700">INFINITY SYNATEX TEAM</div>
+          <div class="meta">مطور واجهات — متاح للعمل الحر</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a class="btn btn-primary" href="#contact">أرسل رسالة</a>
+          <a class="btn btn-ghost" href="#projects">شاهد اعمالنا</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="projects">
+      <div class="section-title">
+        <h3 style="margin:0">أعمال مختارة</h3>
+        <div style="color:var(--muted)">اضغط على العمل لفتح عرض تفصيلي</div>
+      </div>
+
+      <div class="projects-grid">
+        <!-- مشروع 1: استبدل الصور في مجلد images/project1.jpg -->
+        <article class="project" data-title="مشروع تجريبي 1" data-desc="شرح موجز عن المشروع 1">
+          <img src="no.jfif" alt="مشروع 1"/>
+          <div class="info">
+            <h3>مشروع تجريبي 1</h3>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          </div>
+        </article>
+
+        <!-- مشروع 2 -->
+        <article class="project" data-title="مشروع تجريبي 2" data-desc="شرح موجز عن المشروع 2">
+          <img src="no.jfif" alt="مشروع 2"/>
+          <div class="info">
+            <h3>مشروع تجريبي 2</h3>
+            <div class="tags"><span class="tag">React</span><span class="tag">API</span></div>
+          </div>
+        </article>
+
+        <!-- مشروع 3 -->
+        <article class="project" data-title="مشروع تجريبي 3" data-desc="شرح موجز عن المشروع 3">
+          <img src="no.jfif" alt="مشروع 3"/>
+          <div class="info">
+            <h3>مشروع تجريبي 3</h3>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Figma</span></div>
+          </div>
+        </article>
+
+        <!-- نسخ/أضف مشاريع اخرى بنفس الشكل -->
+      </div>
+
+      <div style="margin-top:12px;text-align:center">
+        <button class="btn btn-ghost" id="moreBtn">تحميل المزيد</button>
+      </div>
+    </section>
+
+    <section id="skills" style="margin-top:22px">
+      <div class="section-title"><h3 style="margin:0">المهارات</h3><div style="color:var(--muted)">أدوات ومهارات أعمل بها</div></div>
+      <div class="two-cols">
+        <div class="card">
+          <div class="skill"><div>
+            <div style="font-weight:700">HTML & CSS</div>
+            <div class="meta">هيكل وتصميم سريع واستجابة</div>
+            <div class="bar"><i style="width:95%"></i></div>
+          </div></div>
+
+          <div style="height:12px"></div>
+
+          <div class="skill"><div>
+            <div style="font-weight:700">JavaScript</div>
+            <div class="meta">تفاعل ودوال متقدمة</div>
+            <div class="bar"><i style="width:88%"></i></div>
+          </div></div>
+
+          <div style="height:12px"></div>
+
+          <div class="skill"><div>
+            <div style="font-weight:700">React / Next</div>
+            <div class="meta">بناء تطبيقات مكونّية</div>
+            <div class="bar"><i style="width:75%"></i></div>
+          </div></div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:700;margin-bottom:6px">الفريق</div>
+          <ul style="margin:0;padding-left:20px;color:var(--muted);line-height:1.8">
+            <li>محمد العجمي</li>
+            <li> عمرو عادل </li>
+            <li>  زياد يونس</li>
+            <li>  اشرف شويله</li>
+            <li>  اسلم الكلاف</li>
+          </ul>
+
+          <div style="height:12px"></div>
+
+          <div style="font-weight:700;margin-bottom:6px">تواصل معنا علي</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="tag" href="#">GitHub</a>
+            <a class="tag" href="#"> Facebook</a>
+            <a class="tag" href="#">LinkedIn </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:22px">
+      <div class="section-title">
+        <h3 style="margin:0">تواصل معي</h3>
+        <div style="color:var(--muted)">أرسل رسالة وسأرد خلال أيام العمل</div>
+      </div>
+
+      <div class="card">
+        <form id="contactForm" onsubmit="return false;">
+          <div class="row">
+            <div>
+              <label>الاسم</label>
+              <input id="name" placeholder="اسمك الكامل" required />
+            </div>
+            <div>
+              <label>البريد الإلكتروني</label>
+              <input id="email" type="email" placeholder="name@example.com" required />
+            </div>
+          </div>
+          <div style="height:12px"></div>
+          <div>
+            <label>الرسالة</label>
+            <textarea id="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
+          </div>
+          <div style="height:12px"></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary" id="sendBtn">إرسال</button>
+            <button class="btn btn-ghost" type="reset">مسح</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+    صنع بواسطه محمد احمد العجمي © <span id="year"></span> م. جميع الحقوق محفوظ.
+    </footer>
+
+  </div>
+  <br>
+
+  <!-- Modal for project preview -->
+  <div class="modal" id="modal">
+    <div class="mcard card">
+      <img id="modalImg" src="" alt="عرض المشروع" />
+      <div style="padding:16px;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5))">
+        <h3 id="modalTitle" style="margin:0"></h3>
+        <p id="modalDesc" style="color:var(--muted)"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- small interactions ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // modal open
+    const projects = document.querySelectorAll('.project');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    projects.forEach(p => p.addEventListener('click', ()=>{
+      const img = p.querySelector('img').src;
+      modalImg.src = img;
+      modalTitle.textContent = p.dataset.title || 'مشروع';
+      modalDesc.textContent = p.dataset.desc || '';
+      modal.classList.add('open');
+    }))
+
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal){modal.classList.remove('open')}
+    })
+
+    // fake CV download
+    document.getElementById('downloadCv').addEventListener('click', ()=>{
+      const blob = new Blob([`سيرة ذاتية - اسمك\nمطور واجهات`],{type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'CV-اسمك.txt'; a.click();
+      URL.revokeObjectURL(url);
+    })
+
+    // contact form simple validation + feedback
+    document.getElementById('sendBtn').addEventListener('click', ()=>{
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name||!email||!message){
+        alert('من فضلك املأ كل الحقول.'); return;
+      }
+      // هنا يمكنك ربط الـ form إلى API أو إرسال عبر EmailJS
+      alert('تم إرسال رسالتك! سأعود إليك قريباً.');
+      document.getElementById('contactForm').reset();
+    })
+
+    // more button demo: يضيف مشاريع وهمية مؤقتاً
+    document.getElementById('moreBtn').addEventListener('click', ()=>{
+      for(let i=4;i<=6;i++){
+        const art = document.createElement('article'); art.className='project';
+        art.innerHTML = `<img src="images/project${i}.jpg" alt="مشروع ${i}" /><div class="info"><h3>مشروع ${i}</h3><div class="tags"><span class="tag">Web</span></div></div>`;
+        art.addEventListener('click', ()=>{art.querySelector('img') && (modalImg.src = art.querySelector('img').src); modal.classList.add('open'); modalTitle.textContent = `مشروع ${i}`});
+        document.querySelector('.projects-grid').appendChild(art);
+      }
+      document.getElementById('moreBtn').disabled = true;
+      document.getElementById('moreBtn').textContent = 'تم التحميل';
+    })
+
+    // smooth scrolling for rtl anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', (e)=>{e.preventDefault(); const el = document.querySelector(a.getAttribute('href')); if(el) el.scrollIntoView({behavior:'smooth'});}));
+
+  </script>
+</body>
+</html>
